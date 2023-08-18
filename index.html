@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Média Final</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <div class="titulo-inicial">
+        <h1 class="titulo">Calculador de média</h1>
+        <button class="iniciar estilo-botao">Calcular</button>
+      </div>
+      <section class="main-none">
+        <h2 class="titulo">Insira as notas</h2>
+        <form action="" class="background form">
+          <div class="campo-form">
+            <div class="questionario1 flex">
+              <label for="questionario1" class="label">Questionário 1</label>
+              <input
+                placeholder="Questionário 1"
+                type="text"
+                name="questionario1"
+                id="questionario1"
+                class="input disabled"
+              />
+              <p class="erro">Preencha com uma nota entra 0 a 5.5</p>
+            </div>
+            <div class="relatorio1 flex">
+              <label for="relatorio1" class="label">Relatório 1</label>
+              <input
+                type="text"
+                name="relatorio1"
+                id="relatorio1"
+                class="input disabled"
+                placeholder="Relatório 1"
+              />
+              <p class="erro">Preencha com uma nota entra 0 a 7</p>
+            </div>
+          </div>
+
+          <div class="campo-form">
+            <div class="questionario2 flex">
+              <label for="questionario2" class="label">Questionário 2</label>
+              <input
+                type="text"
+                name="questionario2"
+                id="questionario2"
+                class="input disabled"
+                placeholder="Questionário 2"
+              />
+              <p class="erro">Preencha com uma nota entra 0 a 5.5</p>
+            </div>
+            <div class="relatorio2 flex">
+              <label for="relatorio2" class="label">Relatório 2</label>
+              <input
+                type="text"
+                name="relatorio2"
+                id="relatorio2"
+                class="input disabled"
+                placeholder="Relatório 2"
+              />
+              <p class="erro">Preencha com uma nota entra 0 a 7</p>
+            </div>
+          </div>
+          <div class="submit">
+            <button type="button disabled" class="calcular botao estilo-botao">
+              Calcular
+            </button>
+            <button type="reset" class="botao estilo-botao reset">
+              Limpar
+            </button>
+            <button type="submit" class="enviar botao estilo-botao">
+              Enviar
+            </button>
+          </div>
+        </form>
+      </section>
+
+        <div class="notaInsuficiente background">
+          <h2>Nota insuficiente</h2>
+          <label for="recuperacao">Insira a nota da recuperação </label>
+          <input
+            type="text"
+            id="recuperacao"
+            class="input"
+            placeholder="recuperacao"
+          />
+          <button class="recuperacao estilo-botao botao">Enviar</button>
+          <p class="erro-nota">Somente notas entre 0 e 7</p>
+        </div>
+
+        <div class="media background">
+          <h2>Média</h2>
+          <p>Teste</p>
+          <button class="reiniciar botao estilo-botao">Reiniciar</button>
+        </div>
+    </main>
+  </body>
+</html>
