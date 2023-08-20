@@ -48,6 +48,11 @@
   text-align: center;
 }
 
+.input:focus{
+  border-color: var(--cor-disabled-);
+  outline: none;
+}
+
 .label{
   text-align: center;
   font-size: 1.1rem;

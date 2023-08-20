@@ -14,7 +14,6 @@ h1, h2, p{
 
 .container{
   display: grid;
-  flex-direction: column;
   height: 100vh;
   place-content: center center;
   gap: 20px;
@@ -25,7 +24,7 @@ h1, h2, p{
   color: #ffffff;
   text-align: center;
   font-size: 3.5rem;
-  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
+  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5); word-wrap: break-all;
 }
 
 .form{

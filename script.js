@@ -8,13 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const notaInsuficiente = document.querySelector('.notaInsuficiente')
   const erroNota = document.querySelector('.erro-nota')
   const media = document.querySelector('.media')
-  let textoMedia = document.querySelector('.media p')
+  const mediaResultado = document.querySelector('.media-resultado')
 
   //botoes
   const iniciar = document.querySelector('.iniciar')
   const calcular = document.querySelector('.calcular')
-  const enviar = document.querySelector('.enviar')
   const enviarRecuperacao = document.querySelector('.recuperacao')
+  const resetar = document.querySelector('.resetar')
+  const limpar = document.querySelector('.limpar')
 
   //input
   const relatorio1 = document.getElementById('relatorio1')
@@ -23,35 +24,60 @@ document.addEventListener('DOMContentLoaded', function () {
   const questionario2 = document.getElementById('questionario2')
   const recuperacao = document.getElementById('recuperacao')
   let desabilitarInput = document.querySelectorAll('.disabled')
-  const resetar = document.querySelector('.resetar')
 
   let competencia = []
   let competenciaFinal = 0
   let contador = 0
   let controle = false
   let contadorInput = 1
-  // parseFloat(textoMedia.textContent = `${competenciaFinal}`)
+
+  function modificarInput(controlador) {
+    if (controlador) {
+      desabilitarInput.forEach((elemento) => {
+        elemento.disabled = true
+        elemento.style.backgroundColor = 'var(--cor-disabled-)'
+        elemento.style.borderColor = 'green'
+      })
+    } else {
+      desabilitarInput.forEach((elemento) => {
+        elemento.disabled = false
+        elemento.value = ''
+        elemento.style.borderColor = ''
+        elemento.style.backgroundColor = ''
+      })
+
+      erro.forEach((elemento) => {
+        elemento.style.display = 'none'
+      })
+
+      mediaResultado.textContent = '0'
+    }
+  }
 
   function exibirMedia() {
     competenciaFinal = competencia[0] + competencia[1]
     media.style.display = 'flex'
-    textoMedia.textContent = `${competenciaFinal}`
+    mediaResultado.textContent = `${competenciaFinal}`
     console.log(competenciaFinal)
-    reiniciar()
+
+    modificarInput(true)
+    ocultarBotao(true)
+
+    document.querySelector(`label[for=relatorio1]`).textContent = `Relatório 3`
+    document.querySelector(
+      `label[for=questionario1]`
+    ).textContent = `Questionário 3`
+    document.querySelector(`label[for=relatorio2]`).textContent = `Relatório 4`
+    document.querySelector(
+      `label[for=questionario2]`
+    ).textContent = `Questionário 4`
     return
   }
 
-
-  resetar.addEventListener('click', function(){
+  resetar.addEventListener('click', function () {
     reiniciar()
-    for (let i = 1; i <= 2; i++) {
-      document.querySelector(
-        `label[for=relatorio${i}]`
-      ).textContent = `Relatório ${i}`
-      document.querySelector(
-        `label[for=questionario${i}]`
-      ).textContent = `Questionário ${i}`
-    }
+     label(false)
+    return
   })
   enviarRecuperacao.addEventListener('click', function () {
     const valorRecuperacao = parseFloat(recuperacao.value)
@@ -81,23 +107,35 @@ document.addEventListener('DOMContentLoaded', function () {
     ocultar.style.display = 'grid'
   })
 
-  function label() {
-    document.querySelector('label[for=relatorio1]').textContent = `Relatório ${
-      contadorInput * 2 + 1
-    }`
+  function label(controlador) {
+    if (controlador) {
+      document.querySelector(
+        'label[for=relatorio1]'
+      ).textContent = `Relatório ${contadorInput * 2 + 1}`
 
-    document.querySelector('label[for=relatorio2]').textContent = `Relatório ${
-      contadorInput * 2 + 2
-    }`
+      document.querySelector(
+        'label[for=relatorio2]'
+      ).textContent = `Relatório ${contadorInput * 2 + 2}`
 
-    document.querySelector(
-      'label[for=questionario1]'
-    ).textContent = `Questionário ${contadorInput * 2 + 1}`
+      document.querySelector(
+        'label[for=questionario1]'
+      ).textContent = `Questionário ${contadorInput * 2 + 1}`
 
-    document.querySelector(
-      'label[for=questionario2]'
-    ).textContent = `Questionário ${contadorInput * 2 + 2}`
+      document.querySelector(
+        'label[for=questionario2]'
+      ).textContent = `Questionário ${contadorInput * 2 + 2}`
+    }else{
+      for (let i = 1; i <= 2; i++) {
+        document.querySelector(
+          `label[for=relatorio${i}]`
+        ).textContent = `Relatório ${i}`
+        document.querySelector(
+          `label[for=questionario${i}]`
+        ).textContent = `Questionário ${i}`
+      }
+    }
   }
+
 
   calcular.addEventListener('click', function (e) {
     e.preventDefault()
@@ -133,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return
     }
 
-    label()
+    label(true)
 
     contadorInput++
 
@@ -147,38 +185,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (competencia[contador] < 17.5) {
       ocultar.style.display = 'none'
-      notaInsuficiente.style.display = 'grid'
+      notaInsuficiente.style.display = 'flex'
       return
     }
 
     if (contador >= 1) {
-      for (let i = 1; i <= 2; i++) {
-        document.querySelector(
-          `label[for=relatorio${i}]`
-        ).textContent = `Relatório ${i}`
-        document.querySelector(
-          `label[for=questionario${i}]`
-        ).textContent = `Questionário ${i}`
-      }
+
+      label(false)
+      ocultarBotao(true)
       exibirMedia()
       return
     }
-    console.log('Contador: ' + contador)
-    // ocultar.style.display = 'none'
     return contador++
     // }
   })
 
+  function ocultarBotao(controlador) {
+    if (controlador) {
+      calcular.style.display = 'none'
+      limpar.style.display = 'none'
+    } else {
+      calcular.style.display = ''
+      limpar.style.display = ''
+    }
+  }
+
   form.addEventListener('reset', function (e) {
     e.preventDefault()
 
-    erro.forEach((elemento) => (elemento.style.display = ''))
-    desabilitarInput.forEach((elemento) => {
-      elemento.style.borderColor = ''
-      elemento.value = ''
-    })
+    modificarInput(false)
+    ocultarBotao(false)
   })
-
 
   function reiniciar() {
     competencia.length = 0
@@ -186,7 +223,9 @@ document.addEventListener('DOMContentLoaded', function () {
     contador = 0
     controle = false
     contadorInput = 1
-    desabilitarInput.forEach(elemento => elemento.value = '')
+    modificarInput(false)
+    ocultarBotao(false)
+    mediaResultado.textContent = '0'
     return
   }
 })
