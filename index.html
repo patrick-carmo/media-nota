@@ -95,14 +95,100 @@
             class="input"
             placeholder="recuperacao"
           />
-          <button class="recuperacao estilo-botao botao">Enviar</button>
           <p class="erro-nota">Somente notas entre 0 e 7</p>
+          <button class="recuperacao estilo-botao botao">Enviar</button>
         </div>
 
         <div class="media background">
-          <h2>Média dos relatórios e questionários</h2>
-          <p class="media-resultado">0</p>
-          <button class="prosseguir botao estilo-botao">Prosseguir</button>
+          <div>
+            <h2>Média dos relatórios e questionários</h2>
+            <p class="media-resultado">0</p>
+            <h2 class="media-resultado-reprovado"></h2>
+            <button class="prosseguir botao estilo-botao">Prosseguir</button>
+            <button type="button" class="resetar-media botao estilo-botao">
+              Reiniciar
+            </button>
+          </div>
+        </div>
+
+        <div class="projeto background">
+          <h2 class="titulo">Notas do projeto</h2>
+          <form action="" class="form-projeto">
+            <div class="flex">
+              <label for="projeto1" class="label">Projeto 1</label>
+              <input
+                type="text"
+                name="projeto1"
+                id="projeto1"
+                class="input input-projetos"
+                placeholder="Projeto 1"
+              />
+              <p class="erro-projeto">Preencha com uma nota entra 0 a 10</p>
+            </div>
+            <div class="flex">
+              <label for="projeto2" class="label">Projeto 2</label>
+              <input
+                type="text"
+                name="projeto2"
+                id="projeto2"
+                class="input input-projetos"
+                placeholder="Projeto 2"
+              />
+              <p class="erro-projeto">Preencha com uma nota entra 0 a 20</p>
+            </div>
+            <div class="flex">
+              <label for="apresentacao" class="label"
+                >Apresentação do projeto</label
+              >
+              <input
+                type="text"
+                name="apresentacao"
+                id="apresentacao"
+                class="input input-projetos"
+                placeholder="Apresentação"
+              />
+              <p class="erro-projeto">Preencha com uma nota entra 0 a 20</p>
+            </div>
+            <div class="projeto-botao">
+              <button type="submit" class="botao estilo-botao">Calcular</button>
+              <button type="reset" class="limpar-projeto botao estilo-botao">
+                Limpar
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="prova background flex">
+            <h2 class="titulo">Insira a nota da prova</h2>
+          <form action="" class="form-prova">
+            <div class="flex">
+            <label for="prova-int" class="label">Prova integradora</label>
+            <input
+              type="text"
+              id="prova-int"
+              name="prova-int"
+              class="input input-prova"
+              placeholder="Integradora"
+            />
+            <p class="erro-projeto">Preencha com uma nota entra 0 a 100</p>
+            </div>
+
+            <div class="flex">
+            <label for="prova-sub" class="label">Prova Substitutiva</label>
+            <input
+              type="text"
+              id="prova-sub"
+              name="prova-sub"
+              class="input input-prova"
+              placeholder="Substitutiva"
+            />
+            <p class="erro-projeto">Preencha com uma nota entra 0 a 100</p>
+            </div>
+            <div>
+            <button type="submit" class="botao estilo-botao">Calcular</button>
+            <button type="reset" class="limpar-prova botao estilo-botao">Limpar</button>
+            </div>
+          </form>
         </div>
       </section>
     </main>
