@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let notaProjeto = 0
   let competenciaFinal = 0
   let contador = 0
-  let contadorInput = 0
+  let contadorInput = 1
   let controleMedia = 0
   let controleProsseguir = 0
   let mediaFinal = 0
@@ -146,7 +146,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
       divProvaInt.style.display = 'none'
       divProvaSub.style.display = 'flex'
-      // console.log('Entrou')
     }
     
     else{
@@ -219,11 +218,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if(!naRecuperacao){
       let controleProva = false
 
+      const valor = parseFloat(provaInt.value.trim())
+
       if (
-        isNaN(provaInt.value) ||
-        parseFloat(provaInt.value === '') ||
-        parseFloat(provaInt.value < 0) ||
-        parseFloat(provaInt.value > 100)
+        isNaN(valor) ||
+        parseFloat(valor === '') ||
+        parseFloat(valor < 0) ||
+        parseFloat(valor > 100)
       ) {
         erroProva[0].style.display = 'inline-block'
         erroProva[0].style.borderColor = 'red'
@@ -237,10 +238,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return
       }
 
-      console.log(provaInt.value)
-
       mediaFinal =
-        (notaProjeto + competenciaFinal + parseFloat(provaInt.value)) / 2
+        (notaProjeto + competenciaFinal + valor) / 2
 
       prova.style.display = ''
       if (mediaFinal > 60) {
@@ -255,11 +254,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }else{
       let controleProva = false
 
+      const valor = parseFloat(provaSub.value.trim())
+
       if (
-        isNaN(provaSub.value) ||
-        parseFloat(provaSub.value === '') ||
-        parseFloat(provaSub.value < 0) ||
-        parseFloat(provaSub.value > 100)
+        isNaN(valor) ||
+        parseFloat(valor === '') ||
+        parseFloat(valor < 0) ||
+        parseFloat(valor > 100)
       ) {
         erroProva[1].style.display = 'inline-block'
         erroProva[1].style.borderColor = 'red'
@@ -273,10 +274,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return
       }
 
-      console.log(provaInt.value)
-
       mediaFinal =
-        (notaProjeto + competenciaFinal + parseFloat(provaSub.value)) / 2
+        (notaProjeto + competenciaFinal + valor) / 2
 
       prova.style.display = ''
       controleProsseguir = 3
@@ -333,9 +332,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const valorRecuperacao = parseFloat(recuperacao.value)
     if (!isNaN(valorRecuperacao) && valorRecuperacao !== '') {
       if (valorRecuperacao >= 0 && valorRecuperacao <= 7) {
-        console.log('contador dentro do enviar: ' + contador)
         competencia[contador] += valorRecuperacao
-        console.log(competencia[contador])
         erroNota.style.display = 'none'
         ocultar.style.display = 'grid'
         notaInsuficiente.style.display = 'none'
@@ -424,7 +421,6 @@ document.addEventListener('DOMContentLoaded', function () {
       parseFloat(questionario1.value) +
       parseFloat(questionario2.value)
 
-    console.log(`competencia ${contador}: ${competencia[contador]}`)
 
     if (competencia[contador] < 17.5) {
       ocultar.style.display = 'none'
