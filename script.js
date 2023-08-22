@@ -80,13 +80,11 @@ document.addEventListener('DOMContentLoaded', function () {
       ).textContent = `Questionário 4`
 
       return
-
     } else if (controleMedia === 1) {
       media.style.display = 'flex'
       mediaTitulo.textContent = 'Nota do Projeto'
       mediaResultado.textContent = `${notaProjeto}`
       controleProsseguir++
-
     } else if (controleMedia === 2) {
       media.style.display = 'flex'
       mediaTitulo.textContent = 'Media Total'
@@ -97,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
       prosseguir.style.display = 'none'
       resetarMedia.style.display = 'block'
       controleProsseguir++
-
     } else if (controleMedia === 3) {
       media.style.display = 'flex'
       mediaTitulo.textContent = 'Media total'
@@ -129,27 +126,20 @@ document.addEventListener('DOMContentLoaded', function () {
       return
     })
 
-    if(controleProsseguir === 0){
+    if (controleProsseguir === 0) {
       projeto.style.display = 'flex'
       media.style.display = ''
       ocultar.style.display = 'none'
-    }
-
-    else if(controleProsseguir === 1){
+    } else if (controleProsseguir === 1) {
       prova.style.display = 'flex'
       media.style.display = ''
-    }
-
-    else if(controleProsseguir === 2){
+    } else if (controleProsseguir === 2) {
       prova.style.display = 'flex'
       media.style.display = ''
 
       divProvaInt.style.display = 'none'
       divProvaSub.style.display = 'flex'
-    }
-    
-    else{
-
+    } else {
     }
   })
 
@@ -215,17 +205,12 @@ document.addEventListener('DOMContentLoaded', function () {
   formProva.addEventListener('submit', function (e) {
     e.preventDefault()
 
-    if(!naRecuperacao){
+    if (!naRecuperacao) {
       let controleProva = false
 
       const valor = parseFloat(provaInt.value.trim())
 
-      if (
-        isNaN(valor) ||
-        parseFloat(valor === '') ||
-        parseFloat(valor < 0) ||
-        parseFloat(valor > 100)
-      ) {
+      if (isNaN(valor) || valor === '' || valor < 0 || valor > 100) {
         erroProva[0].style.display = 'inline-block'
         erroProva[0].style.borderColor = 'red'
         controleProva = true
@@ -238,8 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return
       }
 
-      mediaFinal =
-        (notaProjeto + competenciaFinal + valor) / 2
+      mediaFinal = (notaProjeto + competenciaFinal + valor) / 2
 
       prova.style.display = ''
       if (mediaFinal > 60) {
@@ -251,17 +235,12 @@ document.addEventListener('DOMContentLoaded', function () {
         controleMedia = 3
         exibirMedia()
       }
-    }else{
+    } else {
       let controleProva = false
 
       const valor = parseFloat(provaSub.value.trim())
 
-      if (
-        isNaN(valor) ||
-        parseFloat(valor === '') ||
-        parseFloat(valor < 0) ||
-        parseFloat(valor > 100)
-      ) {
+      if (isNaN(valor) || valor === '' || valor < 0 || valor > 100) {
         erroProva[1].style.display = 'inline-block'
         erroProva[1].style.borderColor = 'red'
         controleProva = true
@@ -274,15 +253,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return
       }
 
-      mediaFinal =
-        (notaProjeto + competenciaFinal + valor) / 2
+      mediaFinal = (notaProjeto + competenciaFinal + valor) / 2
 
       prova.style.display = ''
       controleProsseguir = 3
-      if(mediaFinal > 60){
+      if (mediaFinal > 60) {
         controleMedia = 2
         exibirMedia()
-      }else{
+      } else {
         controleMedia = 3
         exibirMedia()
       }
@@ -420,7 +398,6 @@ document.addEventListener('DOMContentLoaded', function () {
       parseFloat(relatorio2.value) +
       parseFloat(questionario1.value) +
       parseFloat(questionario2.value)
-
 
     if (competencia[contador] < 17.5) {
       ocultar.style.display = 'none'
