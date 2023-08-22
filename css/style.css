@@ -14,7 +14,7 @@ h1, h2, p{
 
 .container{
   display: grid;
-  /* height: 100vh; */
+  height: 100vh;
   place-content: center center;
   gap: 20px;
 }
@@ -47,4 +47,43 @@ h1, h2, p{
   display: flex;
   justify-content: space-evenly;
   padding-top: 10px;
+}
+
+@media(max-width: 700px){
+  .estilo-botao{
+    padding: 5px 5px;
+  }
+
+  .main-none{
+    place-self: center center;
+  }
+
+  .submit{
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  .campo-form{
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .form .campo-form:nth-child(2){
+    margin-top: initial;
+  }
+
+  .form{
+    gap: 5px;
+  }
+
+  .form-projeto{
+    grid-template-columns: 1fr;
+  }
+
+  .projeto-botao{
+    grid-column: initial;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
 }

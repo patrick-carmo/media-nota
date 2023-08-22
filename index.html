@@ -100,20 +100,19 @@
         </div>
 
         <div class="media background">
-          <div>
             <h2>Média dos relatórios e questionários</h2>
             <p class="media-resultado">0</p>
-            <h2 class="media-resultado-reprovado"></h2>
+            <h2 class="media-aprovado">APROVADO</h2>
+            <h2 class="media-reprovado">REPROVADO</h2>
             <button class="prosseguir botao estilo-botao">Prosseguir</button>
             <button type="button" class="resetar-media botao estilo-botao">
               Reiniciar
             </button>
-          </div>
         </div>
 
-        <div class="projeto background">
+        <div class="projeto">
           <h2 class="titulo">Notas do projeto</h2>
-          <form action="" class="form-projeto">
+          <form action="" class="form-projeto background">
             <div class="flex">
               <label for="projeto1" class="label">Projeto 1</label>
               <input
@@ -158,10 +157,10 @@
           </form>
         </div>
 
-        <div class="prova background flex">
+        <div class="prova">
             <h2 class="titulo">Insira a nota da prova</h2>
-          <form action="" class="form-prova">
-            <div class="flex">
+          <form action="" class="form-prova background">
+            <div class="div-prova-int flex">
             <label for="prova-int" class="label">Prova integradora</label>
             <input
               type="text"
@@ -170,10 +169,10 @@
               class="input input-prova"
               placeholder="Integradora"
             />
-            <p class="erro-projeto">Preencha com uma nota entra 0 a 100</p>
+            <p class="erro-prova">Preencha com uma nota entra 0 a 100</p>
             </div>
 
-            <div class="flex">
+            <div class="div-prova-sub flex">
             <label for="prova-sub" class="label">Prova Substitutiva</label>
             <input
               type="text"
@@ -182,7 +181,7 @@
               class="input input-prova"
               placeholder="Substitutiva"
             />
-            <p class="erro-projeto">Preencha com uma nota entra 0 a 100</p>
+            <p class="erro-prova">Preencha com uma nota entra 0 a 100</p>
             </div>
             <div>
             <button type="submit" class="botao estilo-botao">Calcular</button>

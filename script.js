@@ -14,9 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const mediaResultado = document.querySelector('.media-resultado')
   const formProjeto = document.querySelector('.form-projeto')
   const formProva = document.querySelector('.form-prova')
-  const mediaResultadoReprovado = document.querySelector('.media-resultado-reprovado')
+  const mediaAprovado = document.querySelector('.media-aprovado')
+  const mediaReprovado = document.querySelector('.media-reprovado')
   const projeto = document.querySelector('.projeto')
   const prova = document.querySelector('.prova')
+  const divProvaInt = document.querySelector('.div-prova-int')
+  const divProvaSub = document.querySelector('.div-prova-sub')
 
   //botoes
   const iniciar = document.querySelector('.iniciar')
@@ -50,41 +53,104 @@ document.addEventListener('DOMContentLoaded', function () {
   let contador = 0
   let contadorInput = 0
   let controleMedia = 0
-  let controleNotaMedia = 0
-  let resultadoFinal = 1
+  let controleProsseguir = 0
+  let mediaFinal = 0
+  let naRecuperacao = false
+
+  function exibirMedia() {
+    if (controleMedia === 0) {
+      competenciaFinal = competencia[0] + competencia[1]
+      media.style.display = 'flex'
+      mediaResultado.textContent = `${competenciaFinal}`
+
+      modificarInput(true)
+      ocultarBotao(true)
+
+      document.querySelector(
+        `label[for=relatorio1]`
+      ).textContent = `Relatório 3`
+      document.querySelector(
+        `label[for=questionario1]`
+      ).textContent = `Questionário 3`
+      document.querySelector(
+        `label[for=relatorio2]`
+      ).textContent = `Relatório 4`
+      document.querySelector(
+        `label[for=questionario2]`
+      ).textContent = `Questionário 4`
+
+      return
+
+    } else if (controleMedia === 1) {
+      media.style.display = 'flex'
+      mediaTitulo.textContent = 'Nota do Projeto'
+      mediaResultado.textContent = `${notaProjeto}`
+      controleProsseguir++
+
+    } else if (controleMedia === 2) {
+      media.style.display = 'flex'
+      mediaTitulo.textContent = 'Media Total'
+      mediaResultado.textContent = `${mediaFinal}`
+      mediaResultado.style.color = ''
+      mediaResultado.style.textShadow = ''
+      mediaAprovado.style.display = 'block'
+      prosseguir.style.display = 'none'
+      resetarMedia.style.display = 'block'
+      controleProsseguir++
+
+    } else if (controleMedia === 3) {
+      media.style.display = 'flex'
+      mediaTitulo.textContent = 'Media total'
+      mediaResultado.style.color = '#B71C1C'
+      mediaResultado.style.textShadow = '0px 0px 5px rgba(128, 128, 128, 0.5)'
+      prosseguir.style.boxShadow = '0px 0px 30px rgba(128, 128, 128, 0.5)'
+      prosseguir.style.backgroundColor = '#666666'
+      prosseguir.textContent = 'Recuperação'
+      mediaResultado.textContent = `${mediaFinal}`
+      if (controleProsseguir === 3) {
+        prosseguir.style.display = 'none'
+        mediaReprovado.style.display = 'block'
+        resetarMedia.style.display = 'block'
+        resetarMedia.style.color = '#ffffff'
+        resetarMedia.style.backgroundColor = '#666666'
+        resetarMedia.style.boxShadow = '0px 0px 30px rgba(128, 128, 128, 0.5)'
+      }
+      controleProsseguir++
+    }
+  }
 
   prosseguir.addEventListener('click', function (e) {
     e.preventDefault()
 
-    if (controleMedia === 0) {
-      // media.style.display = 'none'
+    resetarMedia.addEventListener('click', function () {
+      prosseguir.style.display = ''
+      resetarMedia.style.display = ''
+      reset()
+      return
+    })
+
+    if(controleProsseguir === 0){
       projeto.style.display = 'flex'
-      controleMedia++
+      media.style.display = ''
+      ocultar.style.display = 'none'
+    }
 
-    } else if (controleMedia === 1) {
+    else if(controleProsseguir === 1){
       prova.style.display = 'flex'
-      prosseguir.style.display = 'none'
-      resetarMedia.style.display = 'inline-block'
+      media.style.display = ''
+    }
 
-      resetarMedia.addEventListener('click', function () {
-        prosseguir.style.display = ''
-        resetarMedia.style.display = ''
-        reset()
-        return
-      })
-      // if(resultadoFinal == 0){
-      //   mediaTitulo.textContent = 'Nota Final'
-      //   media.innerHTML += "<h2 class='media-resultado'>APROVADO!<h2>"
-      // }else{
-      //   mediaTitulo.textContent = 'Nota Final'
-      //   mediaResultado.style.color = '#FF5252'
-      //   mediaResultado.style.textShadow = '0px 0px 30px rgba(233, 95, 95, 0.4)'
-      //   mediaResultadoReprovado.textContent = 'REPROVADO!'
-      //   prosseguir.style.display = 'none'
-      //   reiniciarAplicacao.style.display = 'inline-block'
-      //   reiniciarAplicacao.style.color = 'white'
-      //   reiniciarAplicacao.style.backgroundColor = '#666666'
-      // }
+    else if(controleProsseguir === 2){
+      prova.style.display = 'flex'
+      media.style.display = ''
+
+      divProvaInt.style.display = 'none'
+      divProvaSub.style.display = 'flex'
+      // console.log('Entrou')
+    }
+    
+    else{
+
     }
   })
 
@@ -97,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
   })
 
-  limparProva.addEventListener('click', function(){
+  limparProva.addEventListener('click', function () {
     inputProva.forEach((elemento) => {
       elemento.value = ''
       elemento.style.borderColor = ''
@@ -111,71 +177,118 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let controleProjeto = false
 
-    inputProjetos.forEach((elemento)=>{
-    const valor = parseFloat(elemento.value.trim())
-    if (
-      isNaN(valor) ||
-      valor === '' ||
-      ((elemento === projeto1) &&
-        (valor < 0 || valor > 10)) ||
-      ((elemento === projeto2 || elemento === apresentacao) &&
-        (valor < 0 || valor > 20))
-    ){
-      erroProjeto = elemento.nextElementSibling
-      erroProjeto.style.display = 'inline-block'
-      elemento.style.borderColor = 'red'
-      controleProjeto = true
-      return
-    }else{
-      erroProjeto = elemento.nextElementSibling
-      erroProjeto.style.display = ''
-      elemento.style.borderColor = ''
-    }
+    inputProjetos.forEach((elemento) => {
+      const valor = parseFloat(elemento.value.trim())
+      if (
+        isNaN(valor) ||
+        valor === '' ||
+        (elemento === projeto1 && (valor < 0 || valor > 10)) ||
+        ((elemento === projeto2 || elemento === apresentacao) &&
+          (valor < 0 || valor > 20))
+      ) {
+        erroProjeto = elemento.nextElementSibling
+        erroProjeto.style.display = 'inline-block'
+        elemento.style.borderColor = 'red'
+        controleProjeto = true
+        return
+      } else {
+        erroProjeto = elemento.nextElementSibling
+        erroProjeto.style.display = ''
+        elemento.style.borderColor = ''
+      }
     })
 
-     if (controleProjeto) {
-       return
-     }
+    if (controleProjeto) {
+      return
+    }
 
-    parseFloat(notaProjeto =
-      parseFloat(projeto1.value) + parseFloat(projeto2.value) + parseFloat(apresentacao.value))
-    console.log(notaProjeto)
-    controleNotaMedia++
+    parseFloat(
+      (notaProjeto =
+        parseFloat(projeto1.value) +
+        parseFloat(projeto2.value) +
+        parseFloat(apresentacao.value))
+    )
+    controleMedia = 1
+    projeto.style.display = ''
     exibirMedia()
-
   })
 
-
-  formProva.addEventListener('submit', function(e){
+  formProva.addEventListener('submit', function (e) {
     e.preventDefault()
 
-     let controleProva = false
+    if(!naRecuperacao){
+      let controleProva = false
 
-     inputProva.forEach((elemento) => {
-       const valor = parseFloat(elemento.value.trim())
-       if (
-         isNaN(valor) ||
-         valor === '' ||
-         (elemento === provaInt && (valor < 0 || valor > 100)) ||
-         ((elemento === provaSub) &&
-           (valor < 0 || valor > 100))
-       ) {
-         erroProva = elemento.nextElementSibling
-         erroProva.style.display = 'inline-block'
-         elemento.style.borderColor = 'red'
-         controleProva = true
-       } else {
-         erroProva = elemento.nextElementSibling
-         erroProva.style.display = ''
-         elemento.style.borderColor = ''
-       }
-     })
+      if (
+        isNaN(provaInt.value) ||
+        parseFloat(provaInt.value === '') ||
+        parseFloat(provaInt.value < 0) ||
+        parseFloat(provaInt.value > 100)
+      ) {
+        erroProva[0].style.display = 'inline-block'
+        erroProva[0].style.borderColor = 'red'
+        controleProva = true
+      } else {
+        erroProva[0].style.display = ''
+        erroProva[0].style.borderColor = ''
+      }
 
-     if (controleProva) {
-       return
-     }
+      if (controleProva) {
+        return
+      }
+
+      console.log(provaInt.value)
+
+      mediaFinal =
+        (notaProjeto + competenciaFinal + parseFloat(provaInt.value)) / 2
+
+      prova.style.display = ''
+      if (mediaFinal > 60) {
+        controleMedia = 2
+        exibirMedia()
+      }
+      if (mediaFinal < 60) {
+        naRecuperacao = true
+        controleMedia = 3
+        exibirMedia()
+      }
+    }else{
+      let controleProva = false
+
+      if (
+        isNaN(provaSub.value) ||
+        parseFloat(provaSub.value === '') ||
+        parseFloat(provaSub.value < 0) ||
+        parseFloat(provaSub.value > 100)
+      ) {
+        erroProva[1].style.display = 'inline-block'
+        erroProva[1].style.borderColor = 'red'
+        controleProva = true
+      } else {
+        erroProva[1].style.display = ''
+        erroProva[1].style.borderColor = ''
+      }
+
+      if (controleProva) {
+        return
+      }
+
+      console.log(provaInt.value)
+
+      mediaFinal =
+        (notaProjeto + competenciaFinal + parseFloat(provaSub.value)) / 2
+
+      prova.style.display = ''
+      controleProsseguir = 3
+      if(mediaFinal > 60){
+        controleMedia = 2
+        exibirMedia()
+      }else{
+        controleMedia = 3
+        exibirMedia()
+      }
+    }
   })
-
 
   iniciar.addEventListener('click', function () {
     tituloInicial.style.display = 'none'
@@ -205,42 +318,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  function exibirMedia() {
-    if(controleNotaMedia === 0){
-      competenciaFinal = competencia[0] + competencia[1]
-      media.style.display = 'flex'
-      mediaResultado.textContent = `${competenciaFinal}`
-      console.log(competenciaFinal)
-
-      modificarInput(true)
-      ocultarBotao(true)
-
-      document.querySelector(
-        `label[for=relatorio1]`
-      ).textContent = `Relatório 3`
-      document.querySelector(
-        `label[for=questionario1]`
-      ).textContent = `Questionário 3`
-      document.querySelector(
-        `label[for=relatorio2]`
-      ).textContent = `Relatório 4`
-      document.querySelector(
-        `label[for=questionario2]`
-      ).textContent = `Questionário 4`
-      return
-
-    }else if(controleNotaMedia === 1){
-      mediaTitulo.textContent = 'Nota do Projeto'
-      mediaResultado.textContent = `${notaProjeto}`
-    }
-  }
-
-  resetar.addEventListener('click', function() {
+  resetar.addEventListener('click', function () {
     reset()
     return
   })
 
-  function reset(){
+  function reset() {
     reiniciar()
     label(false)
     return
@@ -301,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function () {
   calcular.addEventListener('click', function (e) {
     e.preventDefault()
 
-     let controle = false
+    let controle = false
 
     desabilitarInput.forEach((elemento) => {
       const valor = parseFloat(elemento.value.trim())
@@ -377,14 +460,6 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
   function reiniciar() {
-    competencia.length = 0
-    competenciaFinal = 0
-    contador = 0
-    controle = false
-    contadorInput = 1
-    modificarInput(false)
-    ocultarBotao(false)
-    mediaResultado.textContent = '0'
-    return
+    location.reload()
   }
 })
