@@ -1,40 +1,40 @@
-:root{
+:root {
   --cor-disabled-: #6097ac63;
 }
 
-.estilo-botao{
+.estilo-botao {
   cursor: pointer;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   text-transform: uppercase;
   text-align: center;
   padding: 10px 10px;
   width: 120px;
   border: none;
   border-radius: 4px;
-  box-shadow:  0px 0px 30px rgba(95,186,233,0.4);
+  box-shadow: 0px 0px 30px rgba(95, 186, 233, 0.4);
   font-weight: 500;
 }
 
-.botao{
-  background-color: #6097AC;
+.botao {
+  background-color: #6097ac;
   color: white;
 }
 
-.titulo{
+.titulo {
   text-align: center;
   font-size: 3.5rem;
   color: #ffffff;
   text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
 }
 
-.flex{
+.flex {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.input{
+.input {
   display: block;
   padding: 10px 20px;
   font-size: 1rem;
@@ -43,18 +43,18 @@
   border-radius: 4px;
 }
 
-.input::placeholder{
+.input::placeholder {
   color: rgba(192, 192, 192, 0.507);
   font-size: 0.8rem;
   text-align: center;
 }
 
-.input:focus{
+.input:focus {
   border-color: var(--cor-disabled-);
   outline: none;
 }
 
-.label{
+.label {
   text-align: center;
   font-size: 1.1rem;
   margin-bottom: 5px;
@@ -63,7 +63,7 @@
   padding: 5px 0px;
 }
 
-.background{
+.background {
   background: #ffffff;
   border-radius: 10px;
   padding: 20px 40px;

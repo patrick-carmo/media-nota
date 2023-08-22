@@ -2,10 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   //layout
   const tituloInicial = document.querySelector('.titulo-inicial')
   const ocultar = document.querySelector('.main-none')
-  let erro = document.querySelectorAll('.erro')
-  let erros = document.querySelectorAll('.erro')
-  let erroProjeto = document.querySelectorAll('.erro-projeto')
-  let erroProva = document.querySelectorAll('.erro-prova')
+
   const form = document.querySelector('.form')
   const notaInsuficiente = document.querySelector('.notaInsuficiente')
   const erroNota = document.querySelector('.erro-nota')
@@ -21,7 +18,13 @@ document.addEventListener('DOMContentLoaded', function () {
   const divProvaInt = document.querySelector('.div-prova-int')
   const divProvaSub = document.querySelector('.div-prova-sub')
 
-  //botoes
+  // Tratamento de erros
+  let erro = document.querySelectorAll('.erro')
+  let erros = document.querySelectorAll('.erro')
+  let erroProjeto = document.querySelectorAll('.erro-projeto')
+  let erroProva = document.querySelectorAll('.erro-prova')
+
+  //Botões
   const iniciar = document.querySelector('.iniciar')
   const calcular = document.querySelector('.calcular')
   const enviarRecuperacao = document.querySelector('.recuperacao')
@@ -32,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const prosseguir = document.querySelector('.prosseguir')
   const resetarMedia = document.querySelector('.resetar-media')
 
-  //input
+  //Inputs
   const relatorio1 = document.getElementById('relatorio1')
   const relatorio2 = document.getElementById('relatorio2')
   const questionario1 = document.getElementById('questionario1')
@@ -56,6 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
   let controleProsseguir = 0
   let mediaFinal = 0
   let naRecuperacao = false
+
+  iniciar.addEventListener('click', function () {
+    tituloInicial.style.display = 'none'
+    ocultar.style.display = 'grid'
+  })
 
   function exibirMedia() {
     if (controleMedia === 0) {
@@ -104,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
       prosseguir.style.backgroundColor = '#666666'
       prosseguir.textContent = 'Recuperação'
       mediaResultado.textContent = `${mediaFinal}`
+
       if (controleProsseguir === 3) {
         prosseguir.style.display = 'none'
         mediaReprovado.style.display = 'block'
@@ -143,22 +152,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   })
 
-  limparProjeto.addEventListener('click', function () {
-    inputProjetos.forEach((elemento) => {
+  function limparInput(input, erro) {
+    input.forEach((elemento) => {
       elemento.value = ''
       elemento.style.borderColor = ''
-      erroProjeto = elemento.nextElementSibling
-      erroProjeto.style.display = 'none'
+      erro = elemento.nextElementSibling
+      erro.style.display = 'none'
     })
+  }
+
+  limparProjeto.addEventListener('click', function () {
+    limparInput(inputProjetos, erroProjeto)
   })
 
   limparProva.addEventListener('click', function () {
-    inputProva.forEach((elemento) => {
-      elemento.value = ''
-      elemento.style.borderColor = ''
-      erroProva = elemento.nextElementSibling
-      erroProva.style.display = 'none'
-    })
+    limparInput(inputProva, erroProva)
   })
 
   formProjeto.addEventListener('submit', function (e) {
@@ -202,74 +210,58 @@ document.addEventListener('DOMContentLoaded', function () {
     exibirMedia()
   })
 
+  let controleProva = false
+
+  function filtroProva(prova, erroFiltro) {
+    const valor = parseFloat(prova.value.trim())
+
+    if (isNaN(valor) || valor === '' || valor < 0 || valor > 100) {
+      erroFiltro.style.display = 'inline-block'
+      erroFiltro.style.borderColor = 'red'
+      controleProva = true
+    } else {
+      erroFiltro.style.display = ''
+      erroFiltro.style.borderColor = ''
+    }
+
+    return valor
+  }
+
+  function notaProva(valor) {
+    mediaFinal = (notaProjeto + competenciaFinal + valor) / 2
+    prova.style.display = ''
+    if (mediaFinal > 60) {
+      controleMedia = 2
+      exibirMedia()
+    }
+    if (mediaFinal < 60) {
+      naRecuperacao = true
+      controleMedia = 3
+      exibirMedia()
+    }
+  }
+
   formProva.addEventListener('submit', function (e) {
     e.preventDefault()
 
     if (!naRecuperacao) {
-      let controleProva = false
-
-      const valor = parseFloat(provaInt.value.trim())
-
-      if (isNaN(valor) || valor === '' || valor < 0 || valor > 100) {
-        erroProva[0].style.display = 'inline-block'
-        erroProva[0].style.borderColor = 'red'
-        controleProva = true
-      } else {
-        erroProva[0].style.display = ''
-        erroProva[0].style.borderColor = ''
-      }
+      const valor = filtroProva(provaInt, erroProva[0])
 
       if (controleProva) {
-        return
+        return (controleProva = false)
       }
 
-      mediaFinal = (notaProjeto + competenciaFinal + valor) / 2
-
-      prova.style.display = ''
-      if (mediaFinal > 60) {
-        controleMedia = 2
-        exibirMedia()
-      }
-      if (mediaFinal < 60) {
-        naRecuperacao = true
-        controleMedia = 3
-        exibirMedia()
-      }
+      notaProva(valor)
     } else {
-      let controleProva = false
-
-      const valor = parseFloat(provaSub.value.trim())
-
-      if (isNaN(valor) || valor === '' || valor < 0 || valor > 100) {
-        erroProva[1].style.display = 'inline-block'
-        erroProva[1].style.borderColor = 'red'
-        controleProva = true
-      } else {
-        erroProva[1].style.display = ''
-        erroProva[1].style.borderColor = ''
-      }
+      const valor = filtroProva(provaSub, erroProva[1])
 
       if (controleProva) {
-        return
+        return (controleProva = false)
       }
 
-      mediaFinal = (notaProjeto + competenciaFinal + valor) / 2
-
-      prova.style.display = ''
       controleProsseguir = 3
-      if (mediaFinal > 60) {
-        controleMedia = 2
-        exibirMedia()
-      } else {
-        controleMedia = 3
-        exibirMedia()
-      }
+      notaProva(valor)
     }
-  })
-
-  iniciar.addEventListener('click', function () {
-    tituloInicial.style.display = 'none'
-    ocultar.style.display = 'grid'
   })
 
   function modificarInput(controlador) {

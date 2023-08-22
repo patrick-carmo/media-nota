@@ -1,86 +1,89 @@
 @import url(./reutilizar.css);
 @import url(./ocultos.css);
 
-body{
+body {
   margin: 0 auto;
   background-image: url(./img/bg.jpg);
   font-family: Arial, Helvetica, sans-serif;
 }
 
-h1, h2, p{
+h1,
+h2,
+p {
   margin: 0px;
   padding: 0px;
 }
 
-.container{
+.container {
   display: grid;
   height: 100vh;
   place-content: center center;
   gap: 20px;
 }
 
-.titulo{
+.titulo {
   padding-bottom: 20px;
   color: #ffffff;
   text-align: center;
   font-size: 3.5rem;
-  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5); word-wrap: break-all;
+  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
+  word-wrap: break-all;
 }
 
-.form{
+.form {
   display: grid;
   gap: 20px;
 }
 
-.form .campo-form:nth-child(2){
+.form .campo-form:nth-child(2) {
   margin-top: 30px;
 }
 
-.campo-form{
+.campo-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
 }
 
-.submit{
+.submit {
   grid-column: 1/-1;
   display: flex;
   justify-content: space-evenly;
   padding-top: 10px;
 }
 
-@media(max-width: 700px){
-  .estilo-botao{
+@media (max-width: 700px) {
+  .estilo-botao {
     padding: 5px 5px;
   }
 
-  .main-none{
+  .main-none {
     place-self: center center;
   }
 
-  .submit{
+  .submit {
     flex-direction: column;
     gap: 15px;
     align-items: center;
   }
-  .campo-form{
+  .campo-form {
     grid-template-columns: 1fr;
     gap: 5px;
   }
 
-  .form .campo-form:nth-child(2){
+  .form .campo-form:nth-child(2) {
     margin-top: initial;
   }
 
-  .form{
+  .form {
     gap: 5px;
   }
 
-  .form-projeto{
+  .form-projeto {
     grid-template-columns: 1fr;
   }
 
-  .projeto-botao{
+  .projeto-botao {
     grid-column: initial;
     flex-direction: column;
     gap: 15px;
